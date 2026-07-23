@@ -1,0 +1,41 @@
+# Entornos / secretos
+.env
+.env.*
+!.env.example
+src/.env
+src/.env.*
+!src/.env.example
+
+# Dependencias
+src/vendor/
+src/node_modules/
+
+# Laravel runtime
+src/storage/logs/*.log
+src/storage/framework/cache/*
+src/storage/framework/sessions/*
+src/storage/framework/views/*
+src/bootstrap/cache/*.php
+
+# Archivos subidos / PDFs privados
+pdf/
+src/storage/app/private/
+src/storage/app/public/
+
+# Backups
+backups/
+*.sql
+*.dump
+*.backup
+
+# Build local
+src/public/build/
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Docker local override
+docker-compose.override.yml

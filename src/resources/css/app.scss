@@ -1,0 +1,219 @@
+@import "bootstrap/scss/bootstrap";
+
+:root {
+    --fhuc-orange: #f47920;
+    --fhuc-orange-dark: #d4671a;
+    --fhuc-background: #f8f9fa;
+    --fhuc-border: #dee2e6;
+    --fhuc-text: #212529;
+    --fhuc-muted: #6c757d;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--fhuc-background);
+    color: var(--fhuc-text);
+    font-family:
+        system-ui,
+        -apple-system,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+}
+
+.campus-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Encabezado institucional */
+
+.inst-bar {
+    background: var(--fhuc-background);
+    border-bottom: 3px solid var(--fhuc-orange);
+    padding: 0.75rem 0;
+}
+
+.inst-brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.inst-logo {
+    display: block;
+    width: auto;
+    height: 52px;
+    max-width: 100%;
+}
+
+/* Franja naranja */
+
+.inst-subbar {
+    background: var(--fhuc-orange);
+    color: #ffffff;
+    text-align: center;
+    padding: 0.65rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Área principal */
+
+.campus-main {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+}
+
+/* Tarjeta */
+
+.campus-card {
+    width: 100%;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid var(--fhuc-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.campus-card-header {
+    background: var(--fhuc-orange);
+    color: #ffffff;
+    padding: 1.1rem 1.5rem;
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.campus-card-body {
+    padding: 2rem;
+}
+
+.campus-card-footer {
+    padding: 1rem;
+    border-top: 1px solid #f0f0f0;
+    color: #adb5bd;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.campus-title {
+    margin-bottom: 0.75rem;
+    color: var(--fhuc-text);
+    font-size: clamp(1.75rem, 4vw, 2.4rem);
+    font-weight: 700;
+}
+
+.campus-description {
+    max-width: 620px;
+    margin: 0 auto;
+    color: var(--fhuc-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+/* Botones con estética Campus */
+
+.btn {
+    border-width: 2px !important;
+    border-radius: 50px !important;
+    font-weight: 600;
+}
+
+.btn-primary {
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: var(--fhuc-orange);
+    --bs-btn-color: var(--fhuc-text);
+
+    --bs-btn-hover-bg: var(--fhuc-orange);
+    --bs-btn-hover-border-color: var(--fhuc-orange);
+    --bs-btn-hover-color: var(--fhuc-text);
+
+    --bs-btn-active-bg: var(--fhuc-orange-dark);
+    --bs-btn-active-border-color: var(--fhuc-orange-dark);
+    --bs-btn-active-color: var(--fhuc-text);
+}
+
+.btn-outline-secondary {
+    --bs-btn-color: var(--fhuc-text);
+    --bs-btn-border-color: #6c757d;
+
+    --bs-btn-hover-bg: #6c757d;
+    --bs-btn-hover-border-color: #6c757d;
+    --bs-btn-hover-color: #ffffff;
+}
+
+/* Formularios */
+
+.form-control,
+.form-select {
+    border: 2px solid var(--fhuc-border);
+    border-radius: 50px;
+    padding: 0.55rem 1rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--fhuc-orange);
+    box-shadow: 0 0 0 0.2rem rgba(244, 121, 32, 0.2);
+}
+
+/* Mensajes */
+
+.alert {
+    border-radius: 12px;
+}
+
+.alert-success {
+    background: #fff8f0;
+    border-color: var(--fhuc-orange);
+    color: #7a4000;
+}
+
+.alert-danger {
+    background: #fff3e6;
+    border-color: var(--fhuc-orange);
+    color: #7a4000;
+}
+
+/* Pie */
+
+.campus-footer {
+    padding: 1rem;
+    color: #adb5bd;
+    text-align: center;
+    font-size: 0.78rem;
+}
+
+/* Responsive */
+
+@media (max-width: 576px) {
+    .inst-bar {
+        padding: 0.6rem 0;
+    }
+
+    .inst-logo {
+        height: 44px;
+    }
+
+    .campus-main .container {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    .campus-card-body {
+        padding: 1.5rem;
+    }
+}
+
+.evaluacion-file {
+    width: 230px;
+    min-width: 230px;
+}

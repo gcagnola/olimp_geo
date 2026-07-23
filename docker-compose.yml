@@ -1,0 +1,60 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: olimp-geo-app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    ports:
+      - "0.0.0.0:8081:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./pdf:/var/www/html/storage/app/private/evaluaciones
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - olimp-geo
+
+  node:
+    image: node:22
+    container_name: olimp-geo-node
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+    command: ["sleep", "infinity"]
+    networks:
+      - olimp-geo
+
+  db:
+    image: postgres:17
+    container_name: olimp-geo-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: olimp_geo
+      POSTGRES_USER: olimp_geo
+      POSTGRES_PASSWORD: pussycat
+      TZ: America/Argentina/Cordoba
+      PGTZ: America/Argentina/Cordoba
+    ports:
+      - "0.0.0.0:5434:5432"
+    volumes:
+      - olimp-geo-db-data:/var/lib/postgresql/data
+      - ./backups:/backups
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U olimp_geo -d olimp_geo"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - olimp-geo
+
+networks:
+  olimp-geo:
+    name: olimp-geo
+
+volumes:
+  olimp-geo-db-data:
+    name: olimp-geo-db-data
