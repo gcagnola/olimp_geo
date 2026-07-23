@@ -17,7 +17,12 @@
         'resources/js/app.js',
     ])
 </head>
-<body>
+<body class="app-env-{{ app()->environment() }}">
+@if(app()->environment('local'))
+    <div class="dev-environment-banner">
+        DESARROLLO — 192.168.50.24:8081
+    </div>
+@endif
 <div class="campus-wrapper">
 
     <header class="inst-bar">
