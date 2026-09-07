@@ -60,20 +60,34 @@ class DashboardController extends Controller
 
     private function schoolData(int $idEscuela): object
     {
-        if (Schema::hasTable('escuelas')) {
-            $escuela = DB::table('escuelas')
-                ->where('id_escuela', $idEscuela)
-                ->first();
+        $escuela = DB::table('escuelas')
+            ->where('id_escuela', $idEscuela)
+            ->first();
 
-            if ($escuela) {
-                return $escuela;
-            }
+        if ($escuela) {
+            return (object) [
+                'id_escuela' => $escuela->id_escuela,
+                'nombre' => $escuela->nombre,
+                'cue' => $escuela->cue,
+                'anexo' => $escuela->anexo,
+                'localidad' => $escuela->localidad,
+                'provincia' => $escuela->provincia,
+                'region' => $escuela->region,
+                'subregion' => $escuela->subregion,
+                'detalle' => $escuela->detalle,
+            ];
         }
 
         return (object) [
             'id_escuela' => $idEscuela,
             'nombre' => 'Escuela #' . $idEscuela,
             'cue' => null,
+            'anexo' => null,
+            'localidad' => null,
+            'provincia' => null,
+            'region' => null,
+            'subregion' => null,
+            'detalle' => null,
         ];
     }
 }

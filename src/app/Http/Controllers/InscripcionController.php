@@ -24,26 +24,34 @@ class InscripcionController extends Controller
     {
         $this->authorizeResponsibleAccess($inscripcion);
 
-        $inscripcion->load([
-            'categorias',
-            'personas.persona',
-            'personas.tipo',
-            'personas.evaluacion.archivoVigente',
-        ]);
+        $inscripcion->load('olimpiada');
+
+        $categoriasActivas = $inscripcion->categorias()
+            ->where('activa', true)
+            ->orderBy('categoria')
+            ->pluck('categoria')
+            ->all();
+
+        $alumnos = $inscripcion->personas()
+            ->whereHas('tipo', fn ($query) => $query->where('codigo', 'alumno'))
+            ->with([
+                'persona',
+                'tipo',
+                'evaluacion.archivoVigente',
+            ])
+            ->orderBy('categoria')
+            ->orderBy('id_inscripcion_persona')
+            ->get();
+
+        $escuela = DB::table('escuelas')
+            ->where('id_escuela', $inscripcion->id_escuela)
+            ->first();
 
         return view('inscripciones.show', [
             'inscripcion' => $inscripcion,
-            'escuela' => $this->schoolData($inscripcion->id_escuela),
-            'categoriasActivas' => $inscripcion->categorias()
-                ->where('activa', true)
-                ->pluck('categoria')
-                ->toArray(),
-            'alumnos' => $inscripcion->personas()
-                ->whereHas('tipo', fn ($query) => $query->where('codigo', 'alumno'))
-                ->with(['persona', 'tipo', 'evaluacion.archivoVigente'])
-                ->orderBy('categoria')
-                ->orderBy('id_inscripcion_persona')
-                ->get(),
+            'escuela' => $escuela,
+            'categoriasActivas' => $categoriasActivas,
+            'alumnos' => $alumnos,
         ]);
     }
 
@@ -192,20 +200,34 @@ class InscripcionController extends Controller
 
     private function schoolData(int $idEscuela): object
     {
-        if (Schema::hasTable('escuelas')) {
-            $escuela = DB::table('escuelas')
-                ->where('id_escuela', $idEscuela)
-                ->first();
+        $escuela = DB::table('escuelas')
+            ->where('id_escuela', $idEscuela)
+            ->first();
 
-            if ($escuela) {
-                return $escuela;
-            }
+        if ($escuela) {
+            return (object) [
+                'id_escuela' => $escuela->id_escuela,
+                'nombre' => $escuela->nombre,
+                'cue' => $escuela->cue,
+                'anexo' => $escuela->anexo,
+                'localidad' => $escuela->localidad,
+                'provincia' => $escuela->provincia,
+                'region' => $escuela->region,
+                'subregion' => $escuela->subregion,
+                'detalle' => $escuela->detalle,
+            ];
         }
 
         return (object) [
             'id_escuela' => $idEscuela,
             'nombre' => 'Escuela #' . $idEscuela,
             'cue' => null,
+            'anexo' => null,
+            'localidad' => null,
+            'provincia' => null,
+            'region' => null,
+            'subregion' => null,
+            'detalle' => null,
         ];
     }
 
