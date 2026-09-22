@@ -31,14 +31,65 @@
                         {{ $escuela->nombre ?? ('Escuela #' . $inscripcion->id_escuela) }}
                     </h1>
 
-                    <p class="text-muted mb-1">
-                        Olimpíada: <strong>{{ $inscripcion->olimpiada->nombre ?? 'Sin olimpíada' }}</strong>
+                    <p class="text-muted mb-3">
+                        Olimpíada:
+                        <strong>{{ $inscripcion->olimpiada->nombre ?? 'Sin olimpíada' }}</strong>
                     </p>
 
-                    <p class="text-muted mb-0">
-                        CUE:
-                        <strong>{{ $escuela->cue ?? 'Sin dato' }}</strong>
-                    </p>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-2">
+                            <div class="text-muted small">CUE</div>
+                            <div class="fw-semibold">
+                                {{ $escuela->cue ?: 'Sin dato' }}
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-md-2">
+                            <div class="text-muted small">Anexo</div>
+                            <div class="fw-semibold">
+                                {{ $escuela->anexo ?: 'Sin dato' }}
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <div class="text-muted small">Localidad</div>
+                            <div class="fw-semibold">
+                                {{ $escuela->localidad ?: 'Sin dato' }}
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <div class="text-muted small">Provincia</div>
+                            <div class="fw-semibold">
+                                {{ $escuela->provincia ?: 'Sin dato' }}
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-md-2">
+                            <div class="text-muted small">Región</div>
+                            <div class="fw-semibold">
+                                {{ $escuela->region ?: 'Sin dato' }}
+                            </div>
+                        </div>
+
+                        @if(!empty($escuela->subregion))
+                            <div class="col-12 col-md-3">
+                                <div class="text-muted small">Subregión</div>
+                                <div class="fw-semibold">
+                                    {{ $escuela->subregion }}
+                                </div>
+                            </div>
+                        @endif
+
+                        @if(!empty($escuela->detalle))
+                            <div class="col-12">
+                                <div class="text-muted small">Detalle</div>
+                                <div class="fw-semibold">
+                                    {{ $escuela->detalle }}
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
 
