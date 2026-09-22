@@ -47,7 +47,7 @@
                         <div class="col-6 col-md-2">
                             <div class="text-muted small">Anexo</div>
                             <div class="fw-semibold">
-                                {{ $escuela->anexo ?: 'Sin dato' }}
+                                {{ $escuela->anexo }}
                             </div>
                         </div>
 
