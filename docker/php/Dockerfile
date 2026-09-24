@@ -26,6 +26,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY docker/php/olimp-geo.conf /etc/apache2/conf-available/olimp-geo.conf
 
+COPY docker/php/uploads.ini /usr/local/etc/php/conf.d/uploads.ini
+
 RUN a2enconf olimp-geo
 
 WORKDIR /var/www/html
