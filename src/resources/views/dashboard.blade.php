@@ -12,6 +12,16 @@
 @endsection
 
 @section('content')
+
+    {{-- Acceso exclusivo para administradores de la Olimpíada. --}}
+    @auth
+        @if(in_array(mb_strtolower(trim((string) (auth()->user()->role ?? ''))), ['admin', 'administrator', 'administrador'], true))
+            <div class="mb-3 text-end">
+                <a href="{{ route('admin.olimpiada.escuelas.index') }}" class="btn btn-primary">Administración · Escuelas e inscripciones</a>
+            </div>
+        @endif
+    @endauth
+
     <div class="row justify-content-center">
         <div class="col-12 col-xl-10">
 
@@ -94,15 +104,15 @@
                         </p>
 
                         <div class="d-grid gap-2 d-md-flex">
-                            <a href="#" class="btn btn-primary">
+                            <a href="{{ route('admin.olimpiada.escuelas.index') }}" class="btn btn-primary">
                                 Inscripciones
                             </a>
 
-                            <a href="#" class="btn btn-outline-secondary">
+                            <a href="{{ route('admin.olimpiada.personas.index') }}" class="btn btn-outline-secondary">
                                 Personas
                             </a>
 
-                            <a href="#" class="btn btn-outline-secondary">
+                            <a href="{{ route('admin.olimpiada.evaluaciones.index') }}" class="btn btn-outline-secondary">
                                 Evaluaciones
                             </a>
                         </div>

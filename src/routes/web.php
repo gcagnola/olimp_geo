@@ -44,3 +44,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/inscripciones/{inscripcion}/alumnos/{alumno}/evaluacion', [InscripcionController::class, 'destroyEvaluacion'])
         ->name('inscripciones.alumnos.evaluacion.destroy');
 });
+
+// Administración de la Olimpíada (solo lectura).
+require __DIR__ . '/admin_olimpiada.php';
+
+
+// Consultas administrativas adicionales (lectura, permisos comprobados en el controlador).
+Route::middleware('auth')->prefix('admin')->name('admin.olimpiada.')->group(function (): void {
+    Route::get('/personas', [\App\Http\Controllers\Admin\ConsultaPersonasEvaluacionesController::class, 'personas'])
+        ->name('personas.index');
+    Route::get('/evaluaciones', [\App\Http\Controllers\Admin\ConsultaPersonasEvaluacionesController::class, 'evaluaciones'])
+        ->name('evaluaciones.index');
+});
